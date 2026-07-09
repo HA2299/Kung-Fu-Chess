@@ -1,0 +1,14 @@
+BOARD_HEADER = "Board:"
+COMMANDS_HEADER = "Commands:"
+
+EMPTY_CELL = "."
+
+VALID_TOKENS = {
+    EMPTY_CELL,
+    "wK", "wQ", "wR", "wB", "wN", "wP",
+    "bK", "bQ", "bR", "bB", "bN", "bP",
+}
+
+ERROR_UNKNOWN_TOKEN = "UNKNOWN_TOKEN"
+ERROR_ROW_WIDTH_MISMATCH = "ROW_WIDTH_MISMATCH"
+ERROR_MISSING_BOARD = "MISSING_BOARD"

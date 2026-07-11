@@ -1,5 +1,5 @@
 from borad import Board
-from commands import Command
+from command import Command
 
 
 def test_print_board_command(capsys):

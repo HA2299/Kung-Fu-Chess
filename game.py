@@ -1,7 +1,7 @@
 import sys
 
 from borad import Board
-from commands import Command
+from command import Command
 from fixture_parser import extract_commands
 
 

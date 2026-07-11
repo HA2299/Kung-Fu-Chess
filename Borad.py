@@ -6,6 +6,17 @@ from constants import (
     ERROR_MISSING_BOARD,
     VALID_TOKENS,
 )
+
+from move import Move
+from position import Position
+
+from rook import Rook
+from bishop import Bishop
+from queen import Queen
+from king import King
+from knight import Knight
+
+
 class Board:
     def __init__(self):
         self.rows = 0
@@ -19,9 +30,14 @@ class Board:
     def _extract_board_lines(self, text):
         lines = text.splitlines()
 
-        try:
-            start = lines.index(BOARD_HEADER) + 1
-        except ValueError:
+        start = None
+
+        for i, line in enumerate(lines):
+            if line.strip() == BOARD_HEADER:
+                start = i + 1
+                break
+
+        if start is None:
             raise ValueError(ERROR_MISSING_BOARD)
 
         board_lines = []
@@ -56,10 +72,41 @@ class Board:
                 raise ValueError(ERROR_ROW_WIDTH_MISMATCH)
 
             self._validate_tokens(tokens)
-            self.board.append(tokens)
+
+            pieces_row = []
+
+            for token in tokens:
+                pieces_row.append(self._create_piece(token))
+
+            self.board.append(pieces_row)
 
         self.rows = len(self.board)
         self.cols = expected_cols
+
+    def _create_piece(self, token):
+
+        if token == ".":
+            return None
+
+        color = token[0]
+        piece_type = token[1]
+
+        if piece_type == "R":
+            return Rook(color)
+
+        if piece_type == "B":
+            return Bishop(color)
+
+        if piece_type == "Q":
+            return Queen(color)
+
+        if piece_type == "K":
+            return King(color)
+
+        if piece_type == "N":
+            return Knight(color)
+
+        raise ValueError(ERROR_UNKNOWN_TOKEN)
 
     def _validate_tokens(self, tokens):
         for token in tokens:
@@ -70,4 +117,32 @@ class Board:
         return token in VALID_TOKENS
 
     def __str__(self):
-        return "\n".join(" ".join(row) for row in self.board)
+        result = []
+
+        for row in self.board:
+            result.append(
+                " ".join(
+                    "." if piece is None else piece.symbol
+                    for piece in row
+                )
+            )
+
+        return "\n".join(result)
+
+    def is_inside(self, position: Position) -> bool:
+        return (
+            0 <= position.row < self.rows and
+            0 <= position.col < self.cols
+        )
+
+    def get_piece(self, position: Position):
+        return self.board[position.row][position.col]
+
+    def set_piece(self, position: Position, piece):
+        self.board[position.row][position.col] = piece
+
+    def move_piece(self, move: Move):
+        piece = self.get_piece(move.start)
+
+        self.set_piece(move.end, piece)
+        self.set_piece(move.start, None)

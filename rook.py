@@ -8,3 +8,7 @@ class Rook(Piece):
             start.row == end.row or
             start.col == end.col
         )
+    
+    @property
+    def symbol(self):
+        return self.color + "R"

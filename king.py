@@ -8,3 +8,7 @@ class King(Piece):
         col_diff = abs(start.col - end.col)
 
         return max(row_diff, col_diff) == 1
+
+    @property
+    def symbol(self):
+        return self.color + "K"

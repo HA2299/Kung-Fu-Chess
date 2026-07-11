@@ -12,3 +12,7 @@ class Queen(Piece):
             start.col == end.col or
             row_diff == col_diff
         )
+
+    @property
+    def symbol(self):
+        return self.color + "Q"

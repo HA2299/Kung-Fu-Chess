@@ -11,3 +11,6 @@ class Knight(Piece):
             (row_diff == 2 and col_diff == 1) or
             (row_diff == 1 and col_diff == 2)
         )
+    @property
+    def symbol(self):
+        return self.color + "N"

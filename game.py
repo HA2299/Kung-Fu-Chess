@@ -1,21 +1,30 @@
-import sys
+from move import Move
+from move_validator import MoveValidator
 
-from borad import Board
-from command import Command
-from fixture_parser import extract_commands
+class Game:
 
+    def __init__(self, board):
+        self.board = board
+        self.selected_position = None
+        self.validator = MoveValidator()
 
-def run():
-    text = sys.stdin.read()
+    def click(self, position):
 
-    try:
-        board = Board()
-        board.load_from_text(text)
+        if not self.board.is_inside(position):
+            return
 
-        commands = extract_commands(text)
+        token = self.board.get_piece(position)
 
-        processor = Command(board)
-        processor.execute(commands)
+        if self.selected_position is None:
 
-    except ValueError as error:
-        print("ERROR", error)
+            if token != ".":
+                self.selected_position = position
+
+            return
+
+        move = Move(self.selected_position, position)
+
+        if self.validator.is_valid_pattern(self.board, move):
+            self.board.move_piece(move)
+
+        self.selected_position = None

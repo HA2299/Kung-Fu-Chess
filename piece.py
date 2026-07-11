@@ -4,6 +4,12 @@ class Piece(ABC):
     def __init__(self, color):
         self.color = color
 
+
+    @property
     @abstractmethod
-    def is_valid_move(self, start, end):
+    def symbol(self):
+        pass
+    
+    @abstractmethod
+    def is_valid_pattern(self, start, end):
         pass

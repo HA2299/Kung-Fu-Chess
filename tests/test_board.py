@@ -1,6 +1,8 @@
 import pytest
-
 from borad import Board
+from king import King
+from rook import Rook
+
 
 def test_parse_valid_board():
     board = Board()
@@ -16,12 +18,18 @@ Commands:
 
     assert board.rows == 3
     assert board.cols == 4
-    assert board.board == [
-        ["wK", ".", ".", "bK"],
-        [".", ".", ".", "."],
-        ["wR", ".", ".", "bR"]
-    ]
 
+    assert isinstance(
+        board.board[0][0],
+        King
+    )
+
+    assert board.board[0][1] is None
+
+    assert isinstance(
+        board.board[2][0],
+        Rook
+    )
 
 def test_reject_unknown_token():
     board = Board()

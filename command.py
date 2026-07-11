@@ -3,8 +3,7 @@ from position import Position
 
 
 class Command:
-    def __init__(self, board,game):
-        self.board = board
+    def __init__(self,game):
         self.game=game
 
     def execute(self, commands):
@@ -13,7 +12,7 @@ class Command:
 
     def _execute_command(self, command):
         if command == "print board":
-            print(self.board)
+            print(self.game.board)
         elif command.startswith("click"):
             self._execute_click(command)
         elif command.startswith("wait"):

@@ -117,17 +117,13 @@ class Board:
         return token in VALID_TOKENS
 
     def __str__(self):
-        result = []
-
-        for row in self.board:
-            result.append(
-                " ".join(
-                    "." if piece is None else piece.symbol
-                    for piece in row
-                )
+        return "\n".join(
+            " ".join(
+                "." if piece is None else piece.symbol
+                for piece in row
             )
-
-        return "\n".join(result)
+            for row in self.board
+        )
 
     def is_inside(self, position: Position) -> bool:
         return (

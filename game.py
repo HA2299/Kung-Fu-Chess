@@ -17,14 +17,14 @@ class Game:
 
         if self.selected_position is None:
 
-            if token != ".":
+            if token is not None:
                 self.selected_position = position
 
             return
 
         move = Move(self.selected_position, position)
 
-        if self.validator.is_valid_pattern(self.board, move):
+        if self.validator.is_valid(self.board, move):
             self.board.move_piece(move)
 
         self.selected_position = None

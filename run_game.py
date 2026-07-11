@@ -16,7 +16,7 @@ def run():
 
         commands = extract_commands(text)
 
-        processor = Command(board, game)
+        processor = Command(game)
         processor.execute(commands)
 
     except ValueError as error:

@@ -13,3 +13,5 @@ class Piece(ABC):
     @abstractmethod
     def is_valid_pattern(self, start, end):
         pass
+
+    

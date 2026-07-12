@@ -15,7 +15,7 @@ from bishop import Bishop
 from queen import Queen
 from king import King
 from knight import Knight
-
+from pawn import Pawn
 
 class Board:
     def __init__(self):
@@ -105,6 +105,9 @@ class Board:
 
         if piece_type == "N":
             return Knight(color)
+        
+        if piece_type == "P":
+            return Pawn(color)
 
         raise ValueError(ERROR_UNKNOWN_TOKEN)
 
